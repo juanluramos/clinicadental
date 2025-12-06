@@ -20,27 +20,27 @@
         background-color: #f8f9fa;
       }
 
-      /* 🔹 Hacemos que toda la página se reparta en dos secciones verticales */
+      /* Hacemos que toda la página se reparta en dos secciones verticales */
       body {
         display: flex;
         flex-direction: column;
       }
 
-      /* 🔹 El área principal (menú + contenido) ocupa todo el espacio restante */
+      /* El área principal (menú + contenido) ocupa todo el espacio restante */
       .main-content {
         flex: 1;
         display: flex;
         min-height: 0;
       }
 
-      /* 🔹 Sidebar (menú lateral) */
+      /* Sidebar (menú lateral) */
       .sidebar {
         flex: 0 0 200px;
         background-color: #f8f9fa;
         border-right: 1px solid #0dcaf0; /* color del navbar */
       }
 
-      /* 🔹 Contenedor central */
+      /* Contenedor central */
       .content-area {
         flex: 1;
         display: flex;
@@ -67,12 +67,12 @@
       }
       #horas {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 🔹 3 columnas iguales */
-        gap: 0.5rem; /* 🔹 espacio entre botones */
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+        gap: 0.5rem; /* espacio entre botones */
       }
 
       #horas button {
-        width: 100%; /* 🔹 que ocupen todo el ancho de su celda */
+        width: 100%; /*que ocupen todo el ancho de su celda */
       }
       #horas button:disabled {
         opacity: 0.6;
@@ -97,7 +97,7 @@
   </head>
 
   <body>
-    <!-- 🔹 Navbar superior -->
+    <!--  Navbar superior -->
     <nav class="navbar navbar-light bg-info p-3 mb-0 border-bottom border-info">
       <a class="navbar-brand d-flex align-items-center" href="#">
         <img src="../images/logo.png" alt="Logo" width="120" />
@@ -105,9 +105,9 @@
       </a>
     </nav>
 
-    <!-- 🔹 Contenido principal (ocupa el resto del alto) -->
+    <!-- Contenido principal (ocupa el resto del alto) -->
     <div class="main-content">
-      <!-- 🟦 Menú lateral -->
+      <!-- Menú lateral -->
       <div class="sidebar p-3">
         <ul class="nav flex-column">
           <li class="nav-item mb-2" onclick="location.href='../index.html'">
@@ -128,13 +128,13 @@
         </ul>
       </div>
 
-      <!-- 🟩 Área central -->
+      <!-- Área central -->
       <div class="content-area">
         <div class="form-container text-center">
           <h2 class="mb-4 text-info">Datos del cliente</h2>
 
           <form class="w-100" id="form-clientes">
-            <!-- 🧾 Datos cliente -->
+            <!-- Datos cliente -->
             <div class="datos-cliente p-4 bg-light rounded mb-4">
               <div class="row g-3">
                 <div class="col-md-4">
@@ -210,7 +210,7 @@
 
                 <div class="col-md-8">
                   <label for="horas" class="form-label">Hora</label>
-                  <!-- 🔹 Distribuye los botones en 3 columnas automáticamente -->
+                  <!-- Distribuye los botones en 3 columnas automáticamente -->
                   <div class="row row-cols-3 g-2" id="horas"></div>
                 </div>
               </div>
