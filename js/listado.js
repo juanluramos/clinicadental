@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tabla.appendChild(fila);
   });
 
-  console.log("📋 Citas cargadas:", citas);
+  console.log(" Citas cargadas:", citas);
 
   // Añadir funcionalidad a los botones DESPUÉS de crearlos
   tabla.querySelectorAll(".btn-editar").forEach((btn, index) => {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// 🟦 Función para editar cita
+//  Función para editar cita
 function editarCita(index) {
   const STORAGE_KEY = "citasClinica";
   const citas = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
