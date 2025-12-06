@@ -18,9 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     citas = [];
   }
 
-
-
-//Editar una cita
+  //Editar una cita
   const params = new URLSearchParams(window.location.search);
   const idEditar = params.get("id");
   let modoEdicion = false;
@@ -38,8 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("dni").value = citaAEditar.dni;
       document.getElementById("email").value = citaAEditar.email;
       document.getElementById("telefono").value = citaAEditar.telefono;
-      document.getElementById("fechaNacimiento").value =citaAEditar.fechaNacimiento;
-      document.getElementById("observaciones").value =citaAEditar.observaciones;
+      document.getElementById("fechaNacimiento").value =
+        citaAEditar.fechaNacimiento;
+      document.getElementById("observaciones").value =
+        citaAEditar.observaciones;
       document.getElementById("fechaCita").value = citaAEditar.fechaCita;
 
       horaSeleccionada = citaAEditar.hora;
@@ -173,6 +173,15 @@ document.addEventListener("DOMContentLoaded", function () {
       mensajeError.push("Debe seleccionar una fecha de nacimiento");
     }
 
+    if (
+      observaciones !== "" &&
+      !/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,;:!?-_()]{1,200}$/.test(observaciones)
+    ) {
+      mensajeError.push(
+        "El campo OBSERVACIONES solo puede contener texto y números."
+      );
+    }
+
     if (!horaSeleccionada) {
       mensajeError.push("Selecciona una hora para la cita.");
     }
@@ -196,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-//Guardar o actualizar
+    //Guardar o actualizar
     if (modoEdicion && citaAEditar) {
       // Actualizar cita existente
       citaAEditar.nombre = nombre;
