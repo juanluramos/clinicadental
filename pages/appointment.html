@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Citas</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="../js/citas.js" defer></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background-color: #f8f9fa;
+      }
+
+      /* 🔹 Hacemos que toda la página se reparta en dos secciones verticales */
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* 🔹 El área principal (menú + contenido) ocupa todo el espacio restante */
+      .main-content {
+        flex: 1;
+        display: flex;
+        min-height: 0;
+      }
+
+      /* 🔹 Sidebar (menú lateral) */
+      .sidebar {
+        flex: 0 0 200px;
+        background-color: #f8f9fa;
+        border-right: 1px solid #0dcaf0; /* color del navbar */
+      }
+
+      /* 🔹 Contenedor central */
+      .content-area {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 2rem;
+        overflow-y: auto;
+      }
+
+      .form-container {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        width: 100%;
+        max-width: 70%;
+      }
+      #observaciones {
+        width: 100%;
+        height: 100px; /* puedes cambiarlo a lo que quieras */
+        resize: vertical; /* permite redimensionar hacia abajo o arriba */
+        box-sizing: border-box;
+      }
+      #horas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 🔹 3 columnas iguales */
+        gap: 0.5rem; /* 🔹 espacio entre botones */
+      }
+
+      #horas button {
+        width: 100%; /* 🔹 que ocupen todo el ancho de su celda */
+      }
+      #horas button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: rgb(233, 176, 176);
+        color: black;
+      }
+      #horas button.active {
+        background-color: #0dcaf0;
+        color: white;
+        font-weight: bold;
+      }
+      #errores {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      #errores.visible {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 🔹 Navbar superior -->
+    <nav class="navbar navbar-light bg-info p-3 mb-0 border-bottom border-info">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="../images/logo.png" alt="Logo" width="120" />
+        <span class="ms-3 text-white fs-3">Gestión de Citas</span>
+      </a>
+    </nav>
+
+    <!-- 🔹 Contenido principal (ocupa el resto del alto) -->
+    <div class="main-content">
+      <!-- 🟦 Menú lateral -->
+      <div class="sidebar p-3">
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2" onclick="location.href='../index.html'">
+            <a class="nav-link" href="#">Menú principal</a>
+          </li>
+          <li class="nav-item mb-2" onclick="location.href='./list.html'">
+            <a class="nav-link" href="#">Listado de citas</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Deshabilitado</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- 🟩 Área central -->
+      <div class="content-area">
+        <div class="form-container text-center">
+          <h2 class="mb-4 text-info">Datos del cliente</h2>
+
+          <form class="w-100" id="form-clientes">
+            <!-- 🧾 Datos cliente -->
+            <div class="datos-cliente p-4 bg-light rounded mb-4">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" />
+                </div>
+                <div class="col-md-4">
+                  <label for="apellidos" class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="apellidos" />
+                </div>
+                <div class="col-md-4">
+                  <label for="dni" class="form-label">DNI</label>
+                  <input type="text" class="form-control" id="dni" />
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <div class="input-group">
+                    <span class="input-group-text">@</span>
+                    <input type="email" class="form-control" id="email" />
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="telefono" />
+                </div>
+                <div class="col-md-3">
+                  <label for="fechaNacimiento" class="form-label"
+                    >Fecha de nacimiento</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="fechaNacimiento"
+                  />
+                </div>
+              </div>
+
+              <div class="col-12 mt-3">
+                <label for="observaciones" class="form-label"
+                  >Observaciones</label
+                >
+                <textarea
+                  id="observaciones"
+                  class="form-control"
+                  rows="6"
+                  placeholder="Escribe aquí tus observaciones..."
+                ></textarea>
+
+                <!-- Mensaje de errores-->
+                <div
+                  id="errores"
+                  class="alert alert-danger d-none mt-3 text-start"
+                ></div>
+              </div>
+            </div>
+
+            <h2 class="mb-3 text-info">Datos de la cita</h2>
+            <div class="datos-cita bg-light p-3 rounded w-100">
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <label for="fechaCita" class="form-label"
+                    >Fecha de la cita</label
+                  >
+                  <input type="date" class="form-control" id="fechaCita" />
+
+                  <div class="col-12 text-center">
+                    <button class="btn btn-primary mt-3" type="submit">
+                      Confirmar
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-md-8">
+                  <label for="horas" class="form-label">Hora</label>
+                  <!-- 🔹 Distribuye los botones en 3 columnas automáticamente -->
+                  <div class="row row-cols-3 g-2" id="horas"></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- main-content -->
+  </body>
+</html>
